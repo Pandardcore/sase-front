@@ -1,0 +1,32 @@
+<div class="row">
+    <div class="box">
+        <hr>
+        <h2 class="intro-text text-center">
+            <strong>Lire</strong>
+        </h2>
+        <hr>
+        <div class="row">
+          <div class="col-xs-1">
+            <p (click)="previousPage(); $event.stopPropagation()">Previous page</p>
+          </div>
+          <div class="col-md-10" id="pages" *ngIf="currentChapter" align="center">
+            <h2>{{currentChapter.chapNumber}}</h2>
+            <h3>{{currentChapter.title}}</h3>
+            <div class="row">
+              <div class="col-md-6" id="leftpage">
+                <div id="leftpagecontent" [innerHTML]="leftPage.pageContent" align="justify"></div>
+                {{leftPage.pageNumber}}
+              </div>
+              <div class="col-md-6" id="rightpage">
+                <div id="rightpagecontent" [innerHTML]="rightPage.pageContent" align="justify"></div>
+                {{rightPage.pageNumber}}
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-1">
+            <p (click)="nextPage(); $event.stopPropagation()">Next Page</p>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
