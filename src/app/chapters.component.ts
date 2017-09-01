@@ -3,6 +3,8 @@ import { ActivatedRoute, Params }   from '@angular/router';
 import { Router }            from '@angular/router';
 import { ChapterDisplay }                from './chapterDisplay';
 import { ChaptersService }         from './chapters.service';
+import { Page }         from './page';
+
 @Component({
   selector: 'chapters',
   templateUrl: './chapters.component.html',
@@ -20,12 +22,6 @@ export class ChaptersComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router) { }
 
-  getChapters(): void {
-    this.chaptersService
-        .getChapterNumbers()
-        .then(numbers => this.chapterNumbers = numbers);
-  }
-
   initChapter(chapter: ChapterDisplay): void {
     this.currentChapter = chapter;
     if (typeof this.currentChapter.pages !== 'undefined' && this.currentChapter.pages.length > 0) {
@@ -38,9 +34,7 @@ export class ChaptersComponent implements OnInit {
     this.route.params.subscribe((params: Params) => {
         this.chapterNumber = params['id'];
         if(this.chapterNumber != undefined) {
-          this.currentChapter = this.chaptersService.getChapter(this.chapterNumber);
-          console.log("chapter by id");
-          console.log(this.currentChapter.title);
+          this.chaptersService.getChapter(this.chapterNumber).then(chap => this.initChapter(chap));
         } else {
           this.chaptersService.getLastChapter().then(chap => this.initChapter(chap));
         }

@@ -17,13 +17,6 @@ var ChaptersService = (function () {
         this.headers = new http_1.Headers({ 'Content-Type': 'application/json' });
         this.chaptersUrl = 'http://localhost:8080/chapters'; // URL to web api
     }
-    ChaptersService.prototype.getChapters = function (chapterContent) {
-        return this.http
-            .get(this.chaptersUrl)
-            .toPromise()
-            .then(function (res) { return res.json(); })
-            .catch(this.handleError);
-    };
     ChaptersService.prototype.getChapter = function (chapterId) {
         var url = this.chaptersUrl + "/" + chapterId;
         return this.http.get(url)

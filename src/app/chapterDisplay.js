@@ -1,8 +1,8 @@
 "use strict";
-var Chapter = (function () {
-    function Chapter() {
+var ChapterDisplay = (function () {
+    function ChapterDisplay() {
     }
-    return Chapter;
+    return ChapterDisplay;
 }());
-exports.Chapter = Chapter;
+exports.ChapterDisplay = ChapterDisplay;
 //# sourceMappingURL=chapterDisplay.js.map

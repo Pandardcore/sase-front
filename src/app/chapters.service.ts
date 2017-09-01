@@ -4,7 +4,7 @@ import { Headers, Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 import { Chapter } from './chapter';
-import { ChapterContent } from './chapterContent';
+import { ChapterDisplay } from './chapterDisplay';
 
 @Injectable()
 export class ChaptersService {
@@ -14,15 +14,7 @@ export class ChaptersService {
 
   constructor(private http: Http) { }
 
-  getChapters(chapterContent: ChapterContent): Promise<Chapter> {
-    return this.http
-      .get(this.chaptersUrl)
-      .toPromise()
-      .then(res => res.json() as Chapter[])
-      .catch(this.handleError);
-  }
-
-  getChapter(chapterId: number): Promise<Chapter> {
+  getChapter(chapterId: String): Promise<ChapterDisplay> {
     const url = `${this.chaptersUrl}/${chapterId}`;
     return this.http.get(url)
       .toPromise()

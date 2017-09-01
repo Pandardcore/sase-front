@@ -18,12 +18,6 @@ var ChaptersComponent = (function () {
         this.route = route;
         this.router = router;
     }
-    ChaptersComponent.prototype.getChapters = function () {
-        var _this = this;
-        this.chaptersService
-            .getChapterNumbers()
-            .then(function (numbers) { return _this.chapterNumbers = numbers; });
-    };
     ChaptersComponent.prototype.initChapter = function (chapter) {
         this.currentChapter = chapter;
         if (typeof this.currentChapter.pages !== 'undefined' && this.currentChapter.pages.length > 0) {
@@ -36,9 +30,7 @@ var ChaptersComponent = (function () {
         this.route.params.subscribe(function (params) {
             _this.chapterNumber = params['id'];
             if (_this.chapterNumber != undefined) {
-                _this.currentChapter = _this.chaptersService.getChapter(_this.chapterNumber);
-                console.log("chapter by id");
-                console.log(_this.currentChapter.title);
+                _this.chaptersService.getChapter(_this.chapterNumber).then(function (chap) { return _this.initChapter(chap); });
             }
             else {
                 _this.chaptersService.getLastChapter().then(function (chap) { return _this.initChapter(chap); });

@@ -1,6 +1,6 @@
 import { Page } from './page';
 
-export class Chapter {
+export class ChapterDisplay {
   id: number;
   title: string;
   chapNumber: number;
