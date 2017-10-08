@@ -12,11 +12,7 @@ var http_1 = require("@angular/http");
 var app_routing_module_1 = require("./app-routing.module");
 var app_component_1 = require("./app.component");
 var chapters_component_1 = require("./chapters.component");
-var hero_details_component_1 = require("./hero-details.component");
-var characters_component_1 = require("./characters.component");
-var characters_search_component_1 = require("./characters-search.component");
 var bonus_component_1 = require("./bonus.component");
-var characters_service_1 = require("./characters.service");
 var chapters_service_1 = require("./chapters.service");
 var AppModule = (function () {
     function AppModule() {
@@ -34,13 +30,9 @@ AppModule = __decorate([
         declarations: [
             app_component_1.AppComponent,
             chapters_component_1.ChaptersComponent,
-            hero_details_component_1.HeroDetailsComponent,
-            characters_component_1.CharactersComponent,
-            characters_search_component_1.CharactersSearchComponent,
             bonus_component_1.BonusComponent
         ],
         providers: [
-            characters_service_1.CharactersService,
             chapters_service_1.ChaptersService
         ],
         bootstrap: [app_component_1.AppComponent]

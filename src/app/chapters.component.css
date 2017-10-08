@@ -2,10 +2,64 @@
   border: solid;
 }
 
+#chapTitles {
+	width: 50%;
+}
+
 button.delete {
   float:right;
   margin-top: 2px;
   margin-right: .8em;
   background-color: gray !important;
   color:white;
+}
+
+#chapterNav {
+	padding-bottom: 1%;
+}
+
+.readpage {
+	font-size: 1em;
+}
+
+.pagecontent {
+	min-height: 630px;
+}
+
+.pageSelector {
+	color: rgba(255,255,255, 0.0);
+	-webkit-transition: background-color 0.4s;
+
+}
+
+.pageSelector:hover{
+	margin-top:auto;
+	margin-bottom: auto;
+	text-align: center;
+	font-size: 3em;
+	background-color: rgba(120,120,120, 0.8);
+	color: rgba(255,255,255, 0.9);
+	cursor: pointer;
+	margin-top: inherit;
+	margin-bottom: inherit;
+}
+
+.pageSelectorButton {
+	height: 10%;
+	margin-top: 500%;
+	-webkit-user-select: none;  
+	-moz-user-select: none;    
+	-ms-user-select: none;      
+	user-select: none;
+}
+
+.row-eq-height {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display:         flex;
+}
+
+img {
+  max-height: 600px;
 }

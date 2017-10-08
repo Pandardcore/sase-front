@@ -1,30 +1,39 @@
 <div class="row">
-    <div class="box">
-        <hr>
-        <h2 class="intro-text text-center">
-            <strong>Lire</strong>
-        </h2>
-        <hr>
-        <div class="row">
-          <div class="col-xs-1">
-            <p (click)="previousPage(); $event.stopPropagation()">Previous page</p>
+    <div class="box chapterContent">
+      <div id="chapterNav" class="row">
+        <div class="col-xs-2 col-md-offset-1">
+          <a *ngIf="currentChapter && currentChapter.previousChapterId" href="/read/{{currentChapter.previousChapterId}}"><< Chapitre précédent</a>
+        </div>
+        <div class="col-lg-6" align="center">
+          <select id="chapTitles" [(ngModel)]='selectedChapterToRead' (change)="goToChapter()">
+              <option *ngFor="let c of chapters" [ngValue]="c">{{c.chapterNumber}}-{{c.chapterTitle}}</option>
+          </select>
+        </div>
+        <div class="col-xs-2">
+          <a *ngIf="currentChapter && currentChapter.nextChapterId" href="/read/{{currentChapter.nextChapterId}}">Chapitre suivant >></a>
+        </div>
+      </div>
+      <div class="row row-eq-height">
+          <div class="col-xs-1 pageSelector" (click)="previousPage(); $event.stopPropagation()">
+            <div class="pageSelectorButton" id="previousPageSelector"><</div>
           </div>
           <div class="col-md-10" id="pages" *ngIf="currentChapter" align="center">
-            <h2>{{currentChapter.chapNumber}}</h2>
-            <h3>{{currentChapter.title}}</h3>
+            <h2>{{currentChapter.chapNumber}} - {{currentChapter.title}}</h2>
             <div class="row">
-              <div class="col-md-6" id="leftpage">
-                <div id="leftpagecontent" [innerHTML]="leftPage.pageContent" align="justify"></div>
-                {{leftPage.pageNumber}}
+              <div class="col-md-6 readpage" id="leftpage">
+                <div id="leftpagecontent" class="pagecontent" [innerHTML]="currentChapter.pages[leftPage] != null ? currentChapter.pages[leftPage].pageContent : ''" align="justify"></div>
+                {{leftPage + 1}}
+
               </div>
-              <div class="col-md-6" id="rightpage">
-                <div id="rightpagecontent" [innerHTML]="rightPage.pageContent" align="justify"></div>
-                {{rightPage.pageNumber}}
+              <div class="col-md-6 readpage" id="rightpage">
+                <div id="rightpagecontent" class="pagecontent" [innerHTML]="currentChapter.pages[rightPage] != null ? currentChapter.pages[rightPage].pageContent : ''" align="justify"></div>
+                {{rightPage + 1}}
+
               </div>
             </div>
           </div>
-          <div class="col-xs-1">
-            <p (click)="nextPage(); $event.stopPropagation()">Next Page</p>
+          <div class="col-xs-1 pageSelector" (click)="nextPage(); $event.stopPropagation()">
+            <div class="pageSelectorButton" id="nextPageSelector">></div>
           </div>
         </div>
         <div class="clearfix"></div>

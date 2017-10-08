@@ -17,13 +17,26 @@ var ChaptersComponent = (function () {
         this.chaptersService = chaptersService;
         this.route = route;
         this.router = router;
+        this.selectedChapterToRead = null;
     }
     ChaptersComponent.prototype.initChapter = function (chapter) {
+        var _this = this;
         this.currentChapter = chapter;
-        if (typeof this.currentChapter.pages !== 'undefined' && this.currentChapter.pages.length > 0) {
-            this.leftPage = this.currentChapter.pages[0];
-            this.rightPage = this.currentChapter.pages[1];
+        if (typeof this.currentChapter.pages != 'undefined' && this.currentChapter.pages.length > 0) {
+            this.leftPage = 0;
+            this.rightPage = 1;
+            this.customizePageSelectorButtons();
         }
+        this.chaptersService.getChaptersTitles().then(function (titles) { return _this.loadChaptersTitles(titles); });
+    };
+    ChaptersComponent.prototype.loadChaptersTitles = function (titles) {
+        var _this = this;
+        this.chapters = titles;
+        this.chapters.forEach(function (chap) {
+            if (chap.chapterNumber == _this.currentChapter.chapNumber.toString()) {
+                _this.selectedChapterToRead = chap;
+            }
+        });
     };
     ChaptersComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -37,13 +50,46 @@ var ChaptersComponent = (function () {
             }
         });
     };
+    ChaptersComponent.prototype.goToChapter = function () {
+        window.location.href = '/read/' + this.selectedChapterToRead.chapterNumber;
+    };
     ChaptersComponent.prototype.previousPage = function () {
-        this.leftPage = this.currentChapter.pages[0];
-        this.rightPage = this.currentChapter.pages[1];
+        if (this.leftPage > 0) {
+            this.leftPage = this.leftPage - 2;
+            this.rightPage = this.rightPage - 2;
+            this.customizePageSelectorButtons();
+        }
+        else {
+            if (this.currentChapter.previousChapterId != null) {
+                window.location.href = '/read/' + this.currentChapter.previousChapterId;
+            }
+        }
     };
     ChaptersComponent.prototype.nextPage = function () {
-        this.leftPage = this.currentChapter.pages[2];
-        this.rightPage = this.currentChapter.pages[3];
+        if (this.rightPage < this.currentChapter.pages.length - 1) {
+            this.leftPage = this.leftPage + 2;
+            this.rightPage = this.rightPage + 2;
+            this.customizePageSelectorButtons();
+        }
+        else {
+            if (this.currentChapter.nextChapterId != null) {
+                window.location.href = '/read/' + this.currentChapter.nextChapterId;
+            }
+        }
+    };
+    ChaptersComponent.prototype.customizePageSelectorButtons = function () {
+        if (this.leftPage == 0) {
+            document.getElementById('previousPageSelector').innerHTML = '<<';
+        }
+        else {
+            document.getElementById('previousPageSelector').innerHTML = '<';
+        }
+        if (this.rightPage == this.currentChapter.pages.length) {
+            document.getElementById('nextPageSelector').innerHTML = '>>';
+        }
+        else {
+            document.getElementById('nextPageSelector').innerHTML = '>';
+        }
     };
     return ChaptersComponent;
 }());

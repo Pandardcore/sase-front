@@ -14,19 +14,27 @@ export class ChaptersService {
 
   constructor(private http: Http) { }
 
-  getChapter(chapterId: String): Promise<ChapterDisplay> {
+  getChapter(chapterId: String): Promise<Chapter> {
     const url = `${this.chaptersUrl}/${chapterId}`;
     return this.http.get(url)
       .toPromise()
-      .then(response => response.json() as ChapterDisplay)
+      .then(response => response.json() as Chapter)
       .catch(this.handleError);
   }
 
-  getLastChapter(): Promise<ChapterDisplay> {
+  getLastChapter(): Promise<Chapter> {
     const url = `${this.chaptersUrl}/last`;
     return this.http.get(url)
       .toPromise()
-      .then(response => response.json() as ChapterDisplay)
+      .then(response => response.json() as Chapter)
+      .catch(this.handleError);
+  }
+
+  getChaptersTitles(): Promise<ChapterDisplay[]> {
+    const url = `${this.chaptersUrl}/titles`;
+    return this.http.get(url)
+      .toPromise()
+      .then(response => response.json() as ChapterDisplay[])
       .catch(this.handleError);
   }
 

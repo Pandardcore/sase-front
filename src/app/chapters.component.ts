@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params }   from '@angular/router';
 import { Router }            from '@angular/router';
+import { Chapter }                from './chapter';
 import { ChapterDisplay }                from './chapterDisplay';
-import { ChaptersService }         from './chapters.service';
 import { Page }         from './page';
+
+import { ChaptersService }         from './chapters.service';
 
 @Component({
   selector: 'chapters',
@@ -11,23 +13,35 @@ import { Page }         from './page';
   styleUrls: [ './chapters.component.css' ]
 })
 export class ChaptersComponent implements OnInit {
-  chapterNumbers: number[];
-  currentChapter: ChapterDisplay;
+  chapters: ChapterDisplay[];
+  selectedChapterToRead: ChapterDisplay = null;
+  currentChapter: Chapter;
   chapterNumber: String;
-  leftPage: Page;
-  rightPage: Page;
+  leftPage: number;
+  rightPage: number;
 
   constructor(
     private chaptersService: ChaptersService,
     private route: ActivatedRoute,
     private router: Router) { }
 
-  initChapter(chapter: ChapterDisplay): void {
+  initChapter(chapter: Chapter): void {
     this.currentChapter = chapter;
-    if (typeof this.currentChapter.pages !== 'undefined' && this.currentChapter.pages.length > 0) {
-      this.leftPage = this.currentChapter.pages[0];
-      this.rightPage = this.currentChapter.pages[1];
+    if (typeof this.currentChapter.pages != 'undefined' && this.currentChapter.pages.length > 0) {
+      this.leftPage = 0;
+      this.rightPage = 1;
+      this.customizePageSelectorButtons();
     }
+    this.chaptersService.getChaptersTitles().then(titles => this.loadChaptersTitles(titles));
+  }
+
+  loadChaptersTitles(titles: ChapterDisplay[]): void {
+    this.chapters = titles;
+    this.chapters.forEach(chap => {
+      if(chap.chapterNumber == this.currentChapter.chapNumber.toString()) {
+        this.selectedChapterToRead = chap;
+      }
+    });
   }
 
   ngOnInit(): void {
@@ -41,13 +55,44 @@ export class ChaptersComponent implements OnInit {
       });
   }
 
+  goToChapter(): void {
+    window.location.href = '/read/' + this.selectedChapterToRead.chapterNumber;
+  }
+
   previousPage(): void {
-    this.leftPage = this.currentChapter.pages[0];
-    this.rightPage = this.currentChapter.pages[1];
+    if(this.leftPage > 0) {
+      this.leftPage = this.leftPage - 2;
+      this.rightPage = this.rightPage - 2;
+      this.customizePageSelectorButtons();
+    } else {
+      if(this.currentChapter.previousChapterId != null) {
+        window.location.href = '/read/' + this.currentChapter.previousChapterId;
+      }
+    }
   }
 
   nextPage(): void {
-    this.leftPage = this.currentChapter.pages[2];
-    this.rightPage = this.currentChapter.pages[3];
+    if(this.rightPage < this.currentChapter.pages.length - 1) {
+      this.leftPage = this.leftPage + 2;
+      this.rightPage = this.rightPage + 2;
+      this.customizePageSelectorButtons();
+    } else {
+      if(this.currentChapter.nextChapterId != null) {
+        window.location.href = '/read/' + this.currentChapter.nextChapterId;
+      }
+    }
+  }
+
+  customizePageSelectorButtons(): void {
+      if(this.leftPage == 0) {
+        document.getElementById('previousPageSelector').innerHTML = '<<';
+      } else {
+        document.getElementById('previousPageSelector').innerHTML = '<';
+      }
+      if(this.rightPage == this.currentChapter.pages.length) {
+        document.getElementById('nextPageSelector').innerHTML = '>>';
+      } else {
+        document.getElementById('nextPageSelector').innerHTML = '>';
+      }
   }
 }
