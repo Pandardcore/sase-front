@@ -13,6 +13,7 @@ var app_routing_module_1 = require("./app-routing.module");
 var app_component_1 = require("./app.component");
 var chapters_component_1 = require("./chapters.component");
 var bonus_component_1 = require("./bonus.component");
+var main_component_1 = require("./main.component");
 var chapters_service_1 = require("./chapters.service");
 var AppModule = (function () {
     function AppModule() {
@@ -30,7 +31,8 @@ AppModule = __decorate([
         declarations: [
             app_component_1.AppComponent,
             chapters_component_1.ChaptersComponent,
-            bonus_component_1.BonusComponent
+            bonus_component_1.BonusComponent,
+            main_component_1.MainComponent
         ],
         providers: [
             chapters_service_1.ChaptersService

@@ -5,4 +5,5 @@ import { Component } from '@angular/core';
   templateUrl: './bonus.component.html'
 })
 
-export class BonusComponent {}
+export class BonusComponent {
+}

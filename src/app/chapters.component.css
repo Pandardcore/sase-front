@@ -26,6 +26,11 @@ button.delete {
 	min-height: 630px;
 }
 
+:host >>> .pagecontent img {
+	max-height: 100%;
+	max-width: 100%;
+}
+
 .pageSelector {
 	color: rgba(255,255,255, 0.0);
 	-webkit-transition: background-color 0.4s;

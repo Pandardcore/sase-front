@@ -9,8 +9,9 @@ var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var chapters_component_1 = require("./chapters.component");
 var bonus_component_1 = require("./bonus.component");
+var main_component_1 = require("./main.component");
 var routes = [
-    { path: '', redirectTo: '/read', pathMatch: 'full' },
+    { path: '', component: main_component_1.MainComponent },
     { path: 'read', component: chapters_component_1.ChaptersComponent },
     { path: 'read/:id', component: chapters_component_1.ChaptersComponent },
     { path: 'bonus', component: bonus_component_1.BonusComponent },

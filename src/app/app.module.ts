@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent }  from './app.component';
 import { ChaptersComponent }  from './chapters.component';
 import { BonusComponent }  from './bonus.component';
+import { MainComponent } from './main.component';
 
 import { ChaptersService }  from './chapters.service';
 
@@ -21,7 +22,8 @@ import { ChaptersService }  from './chapters.service';
   declarations: [
     AppComponent,
     ChaptersComponent,
-    BonusComponent
+    BonusComponent,
+    MainComponent
   ],
   providers: [
     ChaptersService

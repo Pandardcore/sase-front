@@ -23,6 +23,7 @@ var ChaptersComponent = (function () {
         var _this = this;
         this.currentChapter = chapter;
         if (typeof this.currentChapter.pages != 'undefined' && this.currentChapter.pages.length > 0) {
+            console.log(this.currentChapter.pages[0].pageContent);
             this.leftPage = 0;
             this.rightPage = 1;
             this.customizePageSelectorButtons();

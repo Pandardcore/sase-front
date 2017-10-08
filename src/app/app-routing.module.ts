@@ -3,9 +3,10 @@ import { RouterModule, Routes }   from '@angular/router';
 
 import { ChaptersComponent }  from './chapters.component';
 import { BonusComponent } from './bonus.component';
+import { MainComponent } from './main.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/read', pathMatch: 'full' },
+  { path: '', component: MainComponent },
   { path: 'read', component: ChaptersComponent },
   { path: 'read/:id', component: ChaptersComponent },
   { path: 'bonus', component: BonusComponent },
